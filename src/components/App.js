@@ -4,15 +4,32 @@ import "../assets/css/reset.css";
 import "../assets/css/style.css";
 import Header from "./Header/Header";
 import Editor from "./Editor/Editor";
+import Context from "./Context/Context";
+import { useState } from "react";
 
 export default function App() {
+  const [pesoFonte, setPesoFonte] = useState("normal");
+  const [alinhamentoTexto, setAlinhamentoTexto] = useState("normal");
+  const [estiloFonte, setEstiloFonte] = useState("normal");
+
   return (
     <BrowserRouter>
-      <Container>
-        <Header />
-        <Editor />
-        <Routes></Routes>
-      </Container>
+      <Context.Provider
+        value={{
+          pesoFonte,
+          setPesoFonte,
+          alinhamentoTexto,
+          setAlinhamentoTexto,
+          estiloFonte,
+          setEstiloFonte,
+        }}
+      >
+        <Container>
+          <Header />
+          <Editor />
+          <Routes></Routes>
+        </Container>
+      </Context.Provider>
     </BrowserRouter>
   );
 }

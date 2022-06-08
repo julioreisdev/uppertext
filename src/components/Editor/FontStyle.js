@@ -1,16 +1,31 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import Context from "../Context/Context";
 
 export default function FontStyle() {
   const [tapNegrito, setTapNegrito] = useState(false);
   const [tapSublinhado, setTapSublinhado] = useState(false);
 
+  const { setEstiloFonte, setPesoFonte } = useContext(Context);
+
   function selectNegrito() {
-    setTapNegrito(!tapNegrito);
+    if (tapNegrito) {
+      setTapNegrito(false);
+      setPesoFonte("normal");
+      return;
+    }
+    setTapNegrito(true);
+    setPesoFonte("bold");
   }
 
   function selectSublinhado() {
-    setTapSublinhado(!tapSublinhado);
+    if (tapSublinhado) {
+      setTapSublinhado(false);
+      setEstiloFonte("normal");
+      return;
+    }
+    setTapSublinhado(true);
+    setEstiloFonte("italic")
   }
 
   return (

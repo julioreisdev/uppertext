@@ -1,41 +1,25 @@
 import styled from "styled-components";
-import { useState } from "react";
-import justificado from "../../assets/img/justificado.png";
+import { useState, useContext } from "react";
 import centralizado from "../../assets/img/centralizado.png";
+import Context from "../Context/Context";
 
 export default function TextAlign() {
-  const [tapJustificado, setTapJustificado] = useState(false);
   const [tapCentralizado, setTapCentralizado] = useState(false);
 
-  function selectJustificado() {
-    if (tapJustificado) {
-      setTapJustificado(false);
-      return;
-    }
-    setTapJustificado(true);
-    setTapCentralizado(false);
-  }
+  const { setAlinhamentoTexto } = useContext(Context);
 
   function selectCentralizado() {
     if (tapCentralizado) {
       setTapCentralizado(false);
+      setAlinhamentoTexto("normal");
       return;
     }
     setTapCentralizado(true);
-    setTapJustificado(false);
+    setAlinhamentoTexto("center");
   }
 
   return (
-    <TextAligned
-      colorJ={tapJustificado ? "#ddd" : "#fff"}
-      colorC={tapCentralizado ? "#ddd" : "#fff"}
-    >
-      <img
-        onClick={selectJustificado}
-        name="justificado"
-        src={justificado}
-        alt=""
-      />
+    <TextAligned colorC={tapCentralizado ? "#ddd" : "#fff"}>
       <img
         onClick={selectCentralizado}
         name="centralizado"
@@ -54,12 +38,6 @@ const TextAligned = styled.div`
   img {
     width: 25px;
     padding: 0.1rem;
-  }
-
-  img:first-child {
-    background-color: ${(props) => props.colorJ};
-  }
-  img:last-child {
     background-color: ${(props) => props.colorC};
   }
 `;

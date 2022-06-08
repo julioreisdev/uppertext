@@ -1,12 +1,19 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import styled from "styled-components";
 import Cabecalho from "./Cabecalho";
+import Context from "../Context/Context";
 
 export default function Editor() {
   const [texto, setTexto] = useState("Digite seu texto aqui..");
 
+  const { pesoFonte, estiloFonte, alinhamentoTexto } = useContext(Context);
+
   return (
-    <Container>
+    <Container
+      peso={pesoFonte}
+      alinhamento={alinhamentoTexto}
+      estilo={estiloFonte}
+    >
       <Cabecalho />
       <textarea
         value={texto}
@@ -29,5 +36,10 @@ const Container = styled.div`
     min-width: 100%;
     max-width: 100%;
     min-height: 100%;
+    max-height: 100%;
+
+    font-weight: ${(props) => props.peso};
+    font-style: ${(props) => props.estilo};
+    text-align: ${(props) => props.alinhamento};
   }
 `;
